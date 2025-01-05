@@ -5,7 +5,9 @@
     username = "zyberg";
     homeDirectory = "/home/zyberg";
     packages = with pkgs; [
-      tofi
+        tofi
+        clipse
+        wl-clipboard
 # TODO: one day I shall move these to a dev environemnt flake or smth
         lua-language-server
         omnisharp-roslyn

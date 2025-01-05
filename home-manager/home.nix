@@ -10,6 +10,10 @@
         clipse
         wl-clipboard
         hyprpaper
+        direnv
+  # Some nice fun for direnv + nixos setup on non-nix projects with git ignore
+  # TODO: one day this shall be baked into the OS. Not today tho.
+  #(buildEnv { name = "my-scripts"; paths = [ ../scripts ]; })
 # TODO: one day I shall move these to a dev environemnt flake or smth
         lua-language-server
         omnisharp-roslyn
@@ -23,9 +27,14 @@
 #      QT_QPA_PLATFORM = "wayland";
 #      SDL_VIDEODRIVER = "wayland";
     };
+    # TODO: this is a meh way of doing stuff; need to think more
+    #sessionPath = [
+    #  "~/.local/bin"
+    #];
   };
 
   programs.home-manager.enable = true;
+
 
   programs.neovim = {
     enable = true;

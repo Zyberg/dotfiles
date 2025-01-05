@@ -6,6 +6,7 @@
     homeDirectory = "/home/zyberg";
     packages = with pkgs; [
         tofi
+        dunst
         clipse
         wl-clipboard
 # TODO: one day I shall move these to a dev environemnt flake or smth
@@ -64,6 +65,7 @@
 
   programs.firefox.enable = true;
 
+  home.file.".config/dunst/dunstrc".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/dunst/dunstrc2";
 # Hyprland stuff
   programs.tofi.enable = true;
   programs.kitty.enable = true;

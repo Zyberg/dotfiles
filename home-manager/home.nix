@@ -9,6 +9,7 @@
         dunst
         clipse
         wl-clipboard
+        hyprpaper
 # TODO: one day I shall move these to a dev environemnt flake or smth
         lua-language-server
         omnisharp-roslyn
@@ -72,6 +73,8 @@
 
 # TODO: This is "dirty", after configuring a good enough system need to use a direct source
   xdg.configFile."hypr/hyprland.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/hypr/hyprland.conf";
+
+xdg.configFile."hypr/hyprpaper.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/hypr/hyprpaper.conf";
 
   home.stateVersion = "23.11";
 }

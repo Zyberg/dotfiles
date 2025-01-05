@@ -6,11 +6,11 @@
     homeDirectory = "/home/zyberg";
     packages = with pkgs; [
       tofi
-      # TODO: one day I shall move these to a dev environemnt flake or smth
-      lua-language-server
-      omnisharp-roslyn
-      dotnet-sdk
-      vimPlugins.omnisharp-extended-lsp-nvim
+# TODO: one day I shall move these to a dev environemnt flake or smth
+        lua-language-server
+        omnisharp-roslyn
+        dotnet-sdk
+        vimPlugins.omnisharp-extended-lsp-nvim
     ];
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
@@ -30,17 +30,17 @@
     vimAlias = true;
     extraWrapperArgs = [
       "--prefix"
-      "PATH"
-      ":"
-      "${lib.makeBinPath [ pkgs.gcc ]}"
+        "PATH"
+        ":"
+        "${lib.makeBinPath [ pkgs.gcc ]}"
     ];
   };
-  # TODO: This is "dirty", after configuring a good enough system need to use a direct source
+# TODO: This is "dirty", after configuring a good enough system need to use a direct source
   home.file.".config/nvim/init.lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/nvim/init.lua";
   home.file.".config/nvim/lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/nvim/lua";
   home.file.".config/nvim/spell".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/nvim/spell";
 
-  #programs.lua-language-server.enable = true;
+#programs.lua-language-server.enable = true;
 
   programs.git = {
     enable = true;
@@ -62,11 +62,11 @@
 
   programs.firefox.enable = true;
 
-  # Hyprland stuff
+# Hyprland stuff
   programs.tofi.enable = true;
   programs.kitty.enable = true;
 
-  # TODO: This is "dirty", after configuring a good enough system need to use a direct source
+# TODO: This is "dirty", after configuring a good enough system need to use a direct source
   xdg.configFile."hypr/hyprland.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/hypr/hyprland.conf";
 
   home.stateVersion = "23.11";

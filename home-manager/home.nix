@@ -11,6 +11,11 @@
         wl-clipboard
         hyprpaper
         direnv
+        gh
+        jq
+        # Some utility stuff
+        ripgrep
+        file
   # Some nice fun for direnv + nixos setup on non-nix projects with git ignore
   # TODO: one day this shall be baked into the OS. Not today tho.
   #(buildEnv { name = "my-scripts"; paths = [ ../scripts ]; })

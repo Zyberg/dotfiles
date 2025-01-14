@@ -1,3 +1,37 @@
+local function show_references_with_custom_layout()
+  require("omnisharp_extended").telescope_lsp_references(
+    require("telescope.themes").get_ivy({
+      layout_config = {
+        height = 0.7, -- Adjust height for better visibility
+        width = 0.95,
+        horizontal = {
+          preview_width = 0.4, -- Preview width
+          results_width = 0.6, -- Preview width
+        },
+      },
+      path_display = { "smart" }, -- Shorten paths for better readability
+      show_line = false, -- Show the line content with the reference
+      previewer = true, -- Keep the preview window
+      sorting_strategy = "descending", -- Sort references by position
+      layout_strategy = "horizontal", -- Switch to horizontal layout
+      attach_mappings = function(_, map)
+        local actions = require('telescope.actions')
+        local action_state = require('telescope.actions.state')
+        
+        -- Display the full path dynamically on Alt+P
+        map('i', '<M-p>', function()
+          local entry = action_state.get_selected_entry()
+          if entry then
+            vim.api.nvim_echo({{ "Full Path: " .. entry.filename, "Normal" }}, false, {})
+          end
+        end)
+        return true
+      end,
+    })
+  )
+end
+
+
 return {
 	{
 		"williamboman/mason.nvim",
@@ -24,8 +58,9 @@ return {
 			local lsp_config = require("lspconfig")
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "gr", function() require("omnisharp_extended").telescope_lsp_references(require("telescope.themes").get_ivy({ excludeDefinition = true })) end, { noremap = true })
-			vim.keymap.set("n", "gd", require("omnisharp_extended").telescope_lsp_definition, { noremap = true })
+      vim.keymap.set("n", "gr", show_references_with_custom_layout, { noremap = true })
+      vim.keymap.set("n", "gd", require("omnisharp_extended").telescope_lsp_definition, { noremap = true })
+      vim.keymap.set("n", "<leader>D", function() require("omnisharp_extended").telescope_lsp_references() end, { noremap = true })
 			vim.keymap.set("n", "gi", require("omnisharp_extended").telescope_lsp_implementation, { noremap = true })
 			vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, {})
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})

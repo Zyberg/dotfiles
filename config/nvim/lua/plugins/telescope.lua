@@ -6,7 +6,22 @@ return {
 
     config = function()
       local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>sf", builtin.find_files, {})
+
+      local function find_files_custom()
+        builtin.find_files({
+          layout_strategy = "horizontal",
+          layout_config = {
+            horizontal = {
+              preview_width = 0.5,
+              results_width = 0.7,
+            },
+          },
+          path_display = { "truncate" },
+          sorting_strategy = "descending",
+        })
+      end
+
+      vim.keymap.set("n", "<leader>sf", find_files_custom, {})
       vim.keymap.set(
         "n",
         "<leader>fg",
@@ -28,6 +43,7 @@ return {
           },
           ["live_grep_args"] = {
             auto_quoting = true, -- enable/disable auto-quoting
+            path_display = { "smart" },
             -- define mappings, e.g.
             mappings = {   -- extend mappings
               i = {

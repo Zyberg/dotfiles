@@ -17,11 +17,7 @@
         ripgrep
         file
   # Some nice fun for direnv + nixos setup on non-nix projects with git ignore
-  # TODO: one day this shall be baked into the OS. Not today tho.
-  #(buildEnv { name = "my-scripts"; paths = [ ../scripts ]; })
         lua-language-server
-        omnisharp-roslyn
-        vimPlugins.omnisharp-extended-lsp-nvim
     ];
     sessionVariables = {
       NIXOS_OZONE_WL = "1";

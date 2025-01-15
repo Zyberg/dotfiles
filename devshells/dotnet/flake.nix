@@ -11,12 +11,13 @@
     devShells."${system}".default = let
       pkgs = import nixpkgs { inherit system; };
     in pkgs.mkShell {
-      # Include Node.js, pnpm, and yarn
       packages = with pkgs; [
         dotnet-sdk_8
+        # For nvim lsp stuff 
+        omnisharp-roslyn
+        vimPlugins.omnisharp-extended-lsp-nvim
       ];
 
-      # Optional: Custom messages or actions when entering the shell
       shellHook = ''
         echo -e "\e[1;32mUsing .NET development environment!\e[0m"
         echo "Using .NET SDK version: $(dotnet --version)"

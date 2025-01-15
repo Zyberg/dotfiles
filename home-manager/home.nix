@@ -16,8 +16,6 @@
         # Some utility stuff
         ripgrep
         file
-  # Some nice fun for direnv + nixos setup on non-nix projects with git ignore
-        lua-language-server
     ];
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
@@ -51,8 +49,6 @@
   home.file.".config/nvim/init.lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/nvim/init.lua";
   home.file.".config/nvim/lua".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/nvim/lua";
   home.file.".config/nvim/spell".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/nvim/spell";
-
-#programs.lua-language-server.enable = true;
 
   programs.git = {
     enable = true;

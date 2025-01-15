@@ -74,6 +74,12 @@
       ll = "ls -l";
       update = "sudo nixos-rebuild switch --flake ~/fabrikas/#fabrikas";
     };
+    initExtra = ''
+      # Source .zshrc.local if it exists
+      if [ -f ~/.zshrc.local ]; then
+        source ~/.zshrc.local
+      fi
+    '';
   };
 
   programs.direnv = {

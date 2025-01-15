@@ -19,10 +19,8 @@
   # Some nice fun for direnv + nixos setup on non-nix projects with git ignore
   # TODO: one day this shall be baked into the OS. Not today tho.
   #(buildEnv { name = "my-scripts"; paths = [ ../scripts ]; })
-# TODO: one day I shall move these to a dev environemnt flake or smth
         lua-language-server
         omnisharp-roslyn
-        dotnet-sdk
         vimPlugins.omnisharp-extended-lsp-nvim
     ];
     sessionVariables = {

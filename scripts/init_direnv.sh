@@ -1,12 +1,24 @@
 #!bash
 
 init_nix_direnv() {
-    local repo_dir=$1
+    local flake_name=$1
+    local repo_dir=$2
+
+    if [[ -z "$flake_name" ]]; then
+        echo "Error: Flake name must be provided as the first parameter."
+        return 1
+    fi
 
     if [[ ! -d "$repo_dir" ]]; then
         echo "Error: $repo_dir is not a valid directory."
         return 1
     fi
+
+    local flake_path="~/fabrikas/devshells/$flake_name"
+   # if [[ ! -d "$flake_path" ]]; then
+   #     echo "Error: Flake path $flake_path does not exist."
+   #     return 1
+   # fi
 
     cd "$repo_dir" || return 1
 
@@ -22,8 +34,8 @@ init_nix_direnv() {
     if [[ -f ".envrc" ]]; then
         # Case 1: .envrc exists
         if [[ ! -f ".envrc.local" ]]; then
-            touch .envrc.local
-            echo "Created empty .envrc.local"
+            echo "use flake $flake_path" >> .envrc.local
+            echo "Created .envrc.local"
         fi
 
         # Add a link from .envrc to .envrc.local
@@ -38,7 +50,7 @@ init_nix_direnv() {
         echo "Updated $git_exclude_file to ignore .envrc.local and .direnv/"
     else
         # Case 2: .envrc does not exist
-        echo "use nix" > .envrc
+        echo "use flake $flake_path" > .envrc
         echo "Created .envrc with 'use nix'"
 
         # Ignore .envrc and .direnv/
@@ -53,7 +65,10 @@ init_nix_direnv() {
     echo "Initialization complete for $repo_dir."
 }
 
+flake_name=$1
+shift
+
 # Loop through provided directories
 for dir in "$@"; do
-    init_nix_direnv "$dir"
+    init_nix_direnv "$flake_name" "$dir"
 done

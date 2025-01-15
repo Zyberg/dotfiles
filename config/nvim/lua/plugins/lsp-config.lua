@@ -25,15 +25,23 @@ return {
 		config = function()
 			require("mason").setup()
 		end,
+    cond = function()
+      -- I want to install lsp servers by hand on linux
+      return vim.loop.os_uname().sysname:lower() == "windows"
+    end
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
 				-- TODO: this should be uncommented for any non-nixos system. Need to do some lua wizardry for that
-        -- ensure_installed = { "lua_ls", "omnisharp", "rust_analyzer" },
+        ensure_installed = { "lua_ls", "omnisharp", "rust_analyzer" },
 			})
 		end,
+    cond = function()
+      -- I want to install lsp servers by hand on linux
+      return vim.loop.os_uname().sysname:lower() == "windows"
+    end
 	},
 	{
 		"neovim/nvim-lspconfig",

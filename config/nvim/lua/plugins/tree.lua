@@ -12,11 +12,13 @@ return {
 
 		--vim.api.nvim_set_keymap("n", "<M-b>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
 	--end,
-  "echasnovski/mini.files",
-  version = false,
-  config = function()
-    require("mini.files").setup()
-
-    vim.api.nvim_set_keymap("n", "<M-b>", ":lua MiniFiles.open()<CR>", { noremap = true, silent = true })
-  end,
+--  "echasnovski/mini.files",
+--  version = false,
+--  config = function()
+--    require("mini.files").setup()
+--
+--    vim.api.nvim_set_keymap("n", "<M-b>", ":lua MiniFiles.open()<CR>", { noremap = true, silent = true })
+--  end,
+  "nvim-telescope/telescope-file-browser.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
 }

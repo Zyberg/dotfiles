@@ -1,66 +1,46 @@
-vim.g.dotnet_build_project = function()
-	local default_path = vim.fn.getcwd() .. "/"
-	if vim.g["dotnet_last_proj_path"] ~= nil then
-		default_path = vim.g["dotnet_last_proj_path"]
-	end
-	local path = vim.fn.input("Path to your *proj file", default_path, "file")
-	vim.g["dotnet_last_proj_path"] = path
-	local cmd = "dotnet build -c Debug " .. path .. " > /dev/null"
-	print("")
-	print("Cmd to execute: " .. cmd)
-	local f = os.execute(cmd)
-	if f == 0 then
-		print("\nBuild: ✔️ ")
-	else
-		print("\nBuild: ❌ (code: " .. f .. ")")
-	end
+local function get_persisted_value(key, default)
+      local config_file = vim.fn.stdpath("data") .. "/dotnet_debug_config.json"
+      local data = {}
+
+      if vim.fn.filereadable(config_file) == 1 then
+            local content = vim.fn.readfile(config_file)
+          data = vim.fn.json_decode(table.concat(content, "\n"))
+      end
+
+      return data[key] or default
 end
 
-vim.g.dotnet_get_dll_path = function()
-	local request = function()
-		return vim.fn.input("Path to dll", vim.fn.getcwd() .. "/bin/Debug/", "file")
-	end
+local function save_persisted_value(key, value)
+      local config_file = vim.fn.stdpath("data") .. "/dotnet_debug_config.json"
+      local data = {}
 
-	if vim.g["dotnet_last_dll_path"] == nil then
-		vim.g["dotnet_last_dll_path"] = request()
-	else
-		if
-			vim.fn.confirm("Do you want to change the path to dll?\n" .. vim.g["dotnet_last_dll_path"], "&yes\n&no", 2)
-			== 1
-		then
-			vim.g["dotnet_last_dll_path"] = request()
-		end
-	end
+      if vim.fn.filereadable(config_file) == 1 then
+            local content = vim.fn.readfile(config_file)
+          data = vim.fn.json_decode(table.concat(content, "\n"))
+      end
 
-	return vim.g["dotnet_last_dll_path"]
+      data[key] = value
+      local file = io.open(config_file, "w")
+      file:write(vim.fn.json_encode(data))
+      file:close()
 end
 
-vim.g.dotnet_get_pid = function()
-	local request = function()
-		local grep_expression = vim.fn.input("Process Name (grep expression): ")
+local function get_dll_path()
+      local saved_path = get_persisted_value("dll_path", nil)
+      if saved_path then
+            return saved_path
+        end
 
-		vim.g["dotnet_last_pid_grep"] = grep_expression
+      local project_dir = vim.fn.input("Enter the entry project directory: ", vim.fn.getcwd(), "dir")
+      local project_name = vim.fn.fnamemodify(project_dir, ":t")
+      local dll_path = project_dir .. "/bin/Debug/net8.0/" .. project_name .. ".dll"
 
-		return vim.g.get_pid(grep_expression)
-	end
+      if vim.fn.confirm("Is this the correct DLL path?\n" .. dll_path, "&Yes\n&No", 1) == 1 then
+            save_persisted_value("dll_path", dll_path)
+            return dll_path
+        end
 
-	if vim.g["dotnet_last_pid"] == nil then
-		vim.g["dotnet_last_pid"] = request()
-	else
-		local pid_of_grep = vim.g.get_pid(vim.g["dotnet_last_pid_grep"])
-
-		vim.fn.print("Currently the pid of '" .. vim.g["dotnet_last_pid_grep"] .. "' is: \t" .. pid_of_grep .. "\t")
-
-		if vim.fn.confirm("Do you want to change the pid?\n" .. vim.g["dotnet_last_pid"], "&yes\n&no", 2) == 1 then
-			if vim.fn.confirm("Do you want to change grep?", "&yes\n&no", 2) == 1 then
-				vim.g["dotnet_last_pid"] = request()
-			else
-				vim.g["dotnet_last_pid"] = vim.g.get_pid(vim.g["dotnet_last_pid_grep"])
-			end
-		end
-	end
-
-	return vim.g["dotnet_last_pid"]
+      return vim.fn.input("Enter the DLL path manually: ", dll_path, "file")
 end
 
 return {
@@ -73,32 +53,28 @@ return {
 	config = function()
 		local dap, dapui = require("dap"), require("dapui")
 
-		-- Set up C# / .NET debugging
+    -- This shall stay
 		dap.adapters.coreclr = {
 			type = "executable",
-			command = "/usr/bin/netcoredbg",
+			command = "netcoredbg",
 			args = { "--interpreter=vscode" },
 		}
 
 		dap.configurations.cs = {
 			{
 				type = "coreclr",
-				name = "Attach to Process",
-				request = "attach",
-				processId = function()
-					return vim.g.dotnet_get_pid()
-				end,
-			},
-			{
-				type = "coreclr",
 				name = "Launch - netcoredbg",
 				request = "launch",
 				program = function()
-					if vim.fn.confirm("Should I recompile first?", "&yes\n&no", 2) == 1 then
-						vim.g.dotnet_build_project()
-					end
-					return vim.g.dotnet_get_dll_path()
-				end,
+          local dll_path = get_dll_path()
+          print("Using DLL path: " .. dll_path)
+          return dll_path
+        end,
+        env = {
+          DOTNET_ENVIRONMENT = "Development",
+          LASER_TYPE = "Unknown",
+          ASBOLUS_ADMIN_BASE_URI = "http://127.0.0.1:20211"
+        }
 			},
 		}
 

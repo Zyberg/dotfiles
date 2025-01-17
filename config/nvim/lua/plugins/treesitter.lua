@@ -5,7 +5,13 @@ return {
     local config = require("nvim-treesitter.configs")
     config.setup({
       ensure_installed = { "lua", "c_sharp" },
-      highlight = { enable = true },
+      highlight = {
+        enable = true,
+        custom_captures = {
+          ["hex_first"] = "TSHexDeviceId",
+          ["hex_last"] = "TSHexIndex",
+        },
+      },
       indent = { enable = true },
     })
   end

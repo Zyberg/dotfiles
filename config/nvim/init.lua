@@ -1,6 +1,13 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- TODO: avoid doing this
+vim.api.nvim_set_hl(0, "HexFirstThree", { fg = "#FF0000" }) -- Red
+vim.api.nvim_set_hl(0, "HexLastThree", { fg = "#0000FF" })  -- Blue
+
+--highlight HexPrefix guifg=Blue
+--highlight HexPart1 guifg=Red
+--highlight HexPart2 guifg=Green
 -- TODO: move this out
 -- Utility function to get a pid of a process defined by a grep
 vim.g.get_pid = function(pattern)

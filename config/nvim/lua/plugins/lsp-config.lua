@@ -43,6 +43,15 @@ return {
       return vim.loop.os_uname().sysname:lower() == "windows"
     end
 	},
+  -- TODO: probably would be nice to move this to a separate file eventually
+  {
+    "seblj/roslyn.nvim",
+    ft = "cs",
+    opts = {
+      -- This is applicable for nix
+      exe = 'Microsoft.CodeAnalysis.LanguageServer'
+    }
+  },
 	{
 		"neovim/nvim-lspconfig",
 		-- TODO: learn how to configure this dependency plugin
@@ -89,9 +98,11 @@ return {
       end
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-      vim.keymap.set("n", "gr", show_references_with_custom_layout, { noremap = true })
-      vim.keymap.set("n", "gd", require("omnisharp_extended").telescope_lsp_definition, { noremap = true })
-      vim.keymap.set("n", "<leader>D", function() require("omnisharp_extended").telescope_lsp_references() end, { noremap = true })
+      vim.keymap.set("n", "gr", vim.lsp.buf.references, { noremap = true })
+      --vim.keymap.set("n", "gr", show_references_with_custom_layout, { noremap = true })
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true })
+      --vim.keymap.set("n", "gd", require("omnisharp_extended").telescope_lsp_definition, { noremap = true })
+      --vim.keymap.set("n", "<leader>D", function() require("omnisharp_extended").telescope_lsp_references() end, { noremap = true })
 			vim.keymap.set("n", "gi", custom_implementations, { noremap = true })
 			vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, {})
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
@@ -101,16 +112,16 @@ return {
 				capabilities = capabilities,
 			})
 
-			lsp_config.omnisharp.setup({
-				capabilities = capabilities,
-				cmd = { "OmniSharp" },
-				handlers = {
-					["textDocument/definition"] = require("omnisharp_extended").handler,
-				},
-				enable_import_completion = true,
-				organize_imports_on_format = true,
-				enable_roslyn_analyzers = true,
-			})
+			--lsp_config.omnisharp.setup({
+			--	capabilities = capabilities,
+			--	cmd = { "OmniSharp" },
+			--	handlers = {
+			--		["textDocument/definition"] = require("omnisharp_extended").handler,
+			--	},
+			--	enable_import_completion = true,
+			--	organize_imports_on_format = true,
+			--	enable_roslyn_analyzers = true,
+			--})
 		end,
 	},
 }

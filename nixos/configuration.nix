@@ -5,6 +5,29 @@
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.home-manager
   ];
+  
+  # Bluetooth stuff
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+#this isfor now only 
+virtualisation.docker.enable = true;
+
+
+  programs.nix-ld.enable = true;
+
+  programs.nix-ld.libraries = with pkgs; [
+    # Add any missing dynamic libraries for unpackaged programs
+    # here, NOT in environment.systemPackages
+    # probably no need for these ;D
+    gotools
+    libxml2
+    libvirt
+    clang
+    augeas
+  ];
 
 # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -34,7 +57,7 @@
   users.users.zyberg = {
     isNormalUser = true;
     description = "Nikolajus Elkana";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [];
     shell = pkgs.zsh;
   };
@@ -49,6 +72,7 @@
 # $ nix search wget
   environment.systemPackages = with pkgs; [
     pkgs.brightnessctl
+    pkgs.discord-ptb
       pkgs.home-manager
   ];
 
@@ -62,6 +86,16 @@
     enable = true;
     xwayland.enable = true;
   };
+
+  services.syncthing = {
+    enable = true;
+    user = "zyberg";
+    dataDir = "/home/zyberg/Documents";
+    configDir = "/home/zyberg/.config/syncthing";
+    openDefaultPorts = true;
+  };
+
+
 # Some programs need SUID wrappers, can be configured further or are
 # started in user sessions.
 # programs.mtr.enable = true;

@@ -30,6 +30,9 @@ init_nix_direnv() {
         return 1
     fi
 
+    echo "Adding directory .local-config to ignore at $git_exclude_file"
+    grep -qxF '.local-config/' "$git_exclude_file" || echo '.local-config/' >> "$git_exclude_file"
+
     # Check if a .envrc already exists
     if [[ -f ".envrc" ]]; then
         # Case 1: .envrc exists

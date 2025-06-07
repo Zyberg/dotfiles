@@ -14,8 +14,10 @@
       packages = with pkgs; [
         dotnet-sdk_8
         # For nvim lsp stuff 
-        omnisharp-roslyn
-        vimPlugins.omnisharp-extended-lsp-nvim
+        roslyn-ls
+        netcoredbg
+        #omnisharp-roslyn
+        #vimPlugins.omnisharp-extended-lsp-nvim
       ];
 
       shellHook = ''

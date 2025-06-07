@@ -10,9 +10,11 @@
         clipse
         wl-clipboard
         hyprpaper
+        hyprshot
         direnv
         gh
         jq
+        sioyek
         # Some utility stuff
         ripgrep
         file
@@ -31,7 +33,6 @@
   };
 
   programs.home-manager.enable = true;
-
 
   programs.neovim = {
     enable = true;
@@ -56,6 +57,8 @@
     userEmail = "nikolajus.elkana@gmail.com";
   };
 
+  programs.lazygit.enable = true;
+
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -79,7 +82,7 @@
     enableZshIntegration = true;
   };
 
-  programs.firefox.enable = true;
+  programs.firefox.enable = true; 
 
   home.file.".config/dunst/dunstrc".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/dunst/dunstrc2";
 # Hyprland stuff
@@ -89,7 +92,7 @@
 # TODO: This is "dirty", after configuring a good enough system need to use a direct source
   xdg.configFile."hypr/hyprland.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/hypr/hyprland.conf";
 
-xdg.configFile."hypr/hyprpaper.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/hypr/hyprpaper.conf";
+  xdg.configFile."hypr/hyprpaper.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/hypr/hyprpaper.conf";
 
   home.stateVersion = "23.11";
 }

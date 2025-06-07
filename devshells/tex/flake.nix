@@ -10,11 +10,14 @@
   in {
     devShells."${system}".default = let
       pkgs = import nixpkgs { inherit system; };
+      mytexlive = (pkgs.texlive.combine {
+          inherit (pkgs.texlive)
+          latexmk
+          scheme-small;
+          });
     in pkgs.mkShell {
       packages = with pkgs; [
-        texlive.withPackages (ps: with ps; [
-          texliveSmall
-        ])
+        mytexlive
       ];
 
       shellHook = ''

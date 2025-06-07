@@ -73,7 +73,8 @@ virtualisation.docker.enable = true;
   environment.systemPackages = with pkgs; [
     pkgs.brightnessctl
     pkgs.discord-ptb
-      pkgs.home-manager
+    pkgs.home-manager
+    emacs
   ];
 
 # TODO: figure out why I must do this here for steam to work. Probably jumbled something up with flakes structure...

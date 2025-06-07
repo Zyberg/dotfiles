@@ -103,7 +103,7 @@ return {
       vim.keymap.set("n", "gd", vim.lsp.buf.definition, { noremap = true })
       --vim.keymap.set("n", "gd", require("omnisharp_extended").telescope_lsp_definition, { noremap = true })
       --vim.keymap.set("n", "<leader>D", function() require("omnisharp_extended").telescope_lsp_references() end, { noremap = true })
-			vim.keymap.set("n", "gi", custom_implementations, { noremap = true })
+			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { noremap = true })
 			vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, {})
 			vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {})
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, {})
@@ -111,6 +111,10 @@ return {
 			lsp_config.lua_ls.setup({
 				capabilities = capabilities,
 			})
+
+      lsp_config.clangd.setup({
+        capabilities = capabilities,
+      })
 
 			--lsp_config.omnisharp.setup({
 			--	capabilities = capabilities,

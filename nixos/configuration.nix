@@ -74,7 +74,7 @@ virtualisation.docker.enable = true;
     pkgs.brightnessctl
     pkgs.discord-ptb
     pkgs.home-manager
-    emacs
+    emacs-nox
   ];
 
 # TODO: figure out why I must do this here for steam to work. Probably jumbled something up with flakes structure...

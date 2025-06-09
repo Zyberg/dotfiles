@@ -74,6 +74,16 @@
       if [ -f ~/.zshrc.local ]; then
         source ~/.zshrc.local
       fi
+
+      setopt PROMPT_SUBST
+
+      show_virtual_env() {
+        if [[ -n "$VIRTUAL_ENV" && -n "$DIRENV_DIR" ]]; then
+          echo "$(basename $VIRTUAL_ENV)"
+        fi
+      }
+
+      PS1=$PS1
     '';
   };
 

@@ -23,6 +23,8 @@
       shellHook = ''
         echo -e "\e[1;32mUsing .NET development environment!\e[0m"
         echo "Using .NET SDK version: $(dotnet --version)"
+        export PROMPT="%F{green}[%f%F{blue}dotnet%F{green}:%~]%f %#" 
+
       '';
     };
   };

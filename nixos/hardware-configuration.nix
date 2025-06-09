@@ -43,5 +43,13 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
+    powerManagement.enable = true;
+    prime.sync.enable = true;
   };
+
+
+#  boot.kernelParams = [ 
+#    "acpi_backlight=video"
+#    "video.use_native_backlight=1"
+#  ];
 }

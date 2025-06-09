@@ -6,6 +6,7 @@
     inputs.home-manager.nixosModules.home-manager
   ];
   
+  boot.kernelPackages = pkgs.linuxPackages_6_1;
   # Bluetooth stuff
   hardware.bluetooth = {
     enable = true;

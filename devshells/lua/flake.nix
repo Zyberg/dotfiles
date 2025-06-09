@@ -2,7 +2,7 @@
   description = "Simple lua dev environment flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11"; # Pin to a stable version
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
   };
 
   outputs = { self, nixpkgs, ... }: let
@@ -21,6 +21,9 @@
       shellHook = ''
         echo -e "\e[1;32mUsing Lua development environment!\e[0m"
         echo "Using Lua version: $(lua -v)"
+
+        export ENV_TAG="lua"
+        export VIRTUAL_ENV="%F{green}(%f%F{blue}$ENV_TAG%f%F{green})%f"
       '';
     };
   };

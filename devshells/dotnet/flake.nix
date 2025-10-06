@@ -19,9 +19,14 @@
             sdk_9_0
           ]
         )
-        # For nvim lsp stuff 
+        # For csharp lsp stuff 
         roslyn-ls
         netcoredbg
+        # For razor lsp
+        rzls
+        vimPlugins.rzls-nvim
+
+        # Deprected stuff
         #omnisharp-roslyn
         #vimPlugins.omnisharp-extended-lsp-nvim
       ];

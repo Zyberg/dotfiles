@@ -112,7 +112,6 @@
 
     confirmation=no
     verbose=nothing
-    uda.project.next.default=study
   '';
 
   home.stateVersion = "23.11";

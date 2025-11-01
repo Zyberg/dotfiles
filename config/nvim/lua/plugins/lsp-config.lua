@@ -116,6 +116,17 @@ return {
         capabilities = capabilities,
       })
 
+      lsp_config.hls.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        filetypes = { "haskell", "lhaskell", "cabal" },
+        settings = {
+          haskell = {
+            formattingProvider = "fourmolu", -- change to "ormolu" if you prefer
+          },
+        },
+      })
+
 			--lsp_config.omnisharp.setup({
 			--	capabilities = capabilities,
 			--	cmd = { "OmniSharp" },

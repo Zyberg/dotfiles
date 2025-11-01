@@ -18,6 +18,9 @@
         # Some utility stuff
         ripgrep
         file
+
+        taskwarrior3
+        timewarrior
     ];
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
@@ -103,6 +106,14 @@
   xdg.configFile."hypr/hyprland.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/hypr/hyprland.conf";
 
   xdg.configFile."hypr/hyprpaper.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/fabrikas/config/hypr/hyprpaper.conf";
+
+  home.file.".taskrc".text = ''
+    data.location=${config.xdg.dataHome}/task
+
+    confirmation=no
+    verbose=nothing
+    uda.project.next.default=study
+  '';
 
   home.stateVersion = "23.11";
 }

@@ -1,5 +1,15 @@
 { inputs, lib, config, pkgs, ... }:
 
+
+let
+  onModifyPatched = 
+    pkgs.runCommand "on-modify.timewarrior" { } ''
+      cp ${pkgs.timewarrior}/share/doc/timew/ext/on-modify.timewarrior $out
+      chmod +w $out
+      substituteInPlace $out --replace '#!/usr/bin/env python3' '#!${pkgs.python3}/bin/python3'
+      chmod 0555 $out
+    '';
+in
 {
   home = {
     username = "zyberg";
@@ -113,6 +123,11 @@
     confirmation=no
     verbose=nothing
   '';
+
+  home.file.".local/share/task/hooks/on-modify.timewarrior" = {
+    source = onModifyPatched;
+    executable = true;
+  };
 
   home.stateVersion = "23.11";
 }

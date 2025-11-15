@@ -111,7 +111,7 @@ in
         "skippedNames+" = [ "*.iso" ".git" ".hg" ];
       };
     }
-  }
+  };
 
 
   programs.direnv = {

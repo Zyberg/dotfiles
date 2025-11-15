@@ -110,7 +110,7 @@ in
       "~/Downloads" = {
         "skippedNames+" = [ "*.iso" ".git" ".hg" ];
       };
-    }
+    };
   };
 
 

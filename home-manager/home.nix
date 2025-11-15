@@ -100,6 +100,18 @@ in
     '';
   };
 
+  services.recoll = {
+  enable = true;
+
+  extraConfig = ''
+    dbdir = ${config.xdg.dataHome}/recoll
+    topdirs = ${config.home.homeDirectory}/Downloads ${config.home.homeDirectory}/Documents
+
+    # ignore common junk/hidden dirs
+    skippedNames = .* CVS .git .hg .svn
+    '';
+  };
+
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;

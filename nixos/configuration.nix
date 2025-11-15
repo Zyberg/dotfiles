@@ -13,8 +13,11 @@
     powerOnBoot = true;
   };
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
 #this isfor now only 
 virtualisation.docker.enable = true;
+
 
 
   programs.nix-ld.enable = true;
@@ -78,6 +81,7 @@ virtualisation.docker.enable = true;
     emacs-nox
   ];
 
+nix.settings.trusted-users = [ "root" "zyberg" ];
 # TODO: figure out why I must do this here for steam to work. Probably jumbled something up with flakes structure...
   nixpkgs.config.allowUnfree = true;
   programs.steam.enable = true;

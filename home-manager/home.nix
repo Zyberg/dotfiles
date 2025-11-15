@@ -101,16 +101,18 @@ in
   };
 
   services.recoll = {
-  enable = true;
+    enable = true;
 
-  extraConfig = ''
-    dbdir = ${config.xdg.dataHome}/recoll
-    topdirs = ${config.home.homeDirectory}/Downloads ${config.home.homeDirectory}/Documents
+    settings = {
+      loglevel = 5;
+      topdirs = [ "~/Downloads" "~/Documents" ];
 
-    # ignore common junk/hidden dirs
-    skippedNames = .* CVS .git .hg .svn
-    '';
-  };
+      "~/Downloads" = {
+        "skippedNames+" = [ "*.iso" ".git" ".hg" ];
+      };
+    }
+  }
+
 
   programs.direnv = {
     enable = true;

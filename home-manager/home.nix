@@ -28,6 +28,7 @@ in
         # Some utility stuff
         ripgrep
         file
+        anki
 
         taskwarrior3
         timewarrior
@@ -70,9 +71,6 @@ in
     userEmail = "nikolajus.elkana@gmail.com";
   };
 
-  programs.anki = {
-    enable = true;
-  };
 
   programs.lazygit.enable = true;
 

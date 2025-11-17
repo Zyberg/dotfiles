@@ -70,6 +70,11 @@ in
     userEmail = "nikolajus.elkana@gmail.com";
   };
 
+  programs.anki = {
+    enable = true;
+
+  }
+
   programs.lazygit.enable = true;
 
   programs.zsh = {

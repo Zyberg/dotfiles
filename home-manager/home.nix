@@ -72,8 +72,7 @@ in
 
   programs.anki = {
     enable = true;
-
-  }
+  };
 
   programs.lazygit.enable = true;
 

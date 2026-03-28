@@ -29,6 +29,7 @@ in
         ripgrep
         file
         anki
+        zotero
 
         taskwarrior3
         timewarrior
